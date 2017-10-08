@@ -15,7 +15,7 @@ let app = new Vue({
     console.log('created')
 
     // register event listener
-    this.socket.on('chat message', (msg) => {
+    this.socket.on('chatChannel', (msg) => {
         console.log('received!');
         this.messages.push(msg)
         window.scrollTo(0, document.body.scrollHeight);
@@ -31,7 +31,7 @@ let app = new Vue({
       this.msg = ''
       console.log('sending');
 
-      this.socket.emit('chat message', {
+      this.socket.emit('chatChannel', {
         text: message,
         by: by
       })
