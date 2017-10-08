@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>Socket.IO chat</title>
+  <title>Chat Room</title>
   <link rel="stylesheet" href="css/master.css">
 
   <script src="https://cdn.jsdelivr.net/npm/moment@2.18.1/moment.min.js"></script>
@@ -22,19 +22,20 @@
       <ul class="chat-ul">
 
         <div v-for="m in messages">
+
           <li v-if="m.by === currentUser">
-            <div class="message-data">
-              <span class="message-data-name"><h3><i class="fa fa-circle"></i> {{ m.by }}</h3></span>
-            </div>
-            <p class="message you-message"> {{ m.text }} </p>
-            <div> {{ humanReadable(m.when) }} </div>
+            <h3><i class="fa fa-circle"></i> {{ m.by }}</h3>
+            <p> {{ m.text }} </p>
+            <div class="gray"> {{ humanReadable(m.when) }} </div>
           </li>
+
           <li v-else>
-            <div class="message-data align-right">
-              <span class="message-data-name"> <h3>{{ m.by }} <i class="fa fa-circle"></i></h3></span>
-            </div>
-            <div class="message me-message float-right"> {{ m.text }} </div>
+            <h3>{{ m.by }} <i class="fa fa-circle"></i></h3>
+            <p> {{ m.text }} </p>
+            <div class="gray"> {{ humanReadable(m.when) }} </div>
           </li>
+
+          <br>
         </div>
 
       </ul>
