@@ -1,12 +1,19 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 const express = require('express')
 const port = process.env.PORT || 3000
+const DB_URL = 'mongodb://localhost/chat-room'
 
 const Chat = require('./models/chat')
 var app = express()
 
-app.get('/', function(req, res){
+app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html')
+})
+
+app.get('/history', (req, res) => {
+  getChats((chats) => {
+    res.json(chats)
+  })
 })
 
 app.use(express.static(__dirname + '/public'))
@@ -29,12 +36,12 @@ io.on('connection', function(socket){
   })
 })
 
-
+/**
+ * saves the chat item
+ */
 function insertChat (chat) {
-  const DB_URL = 'mongodb://localhost/chat-room';
-
 	if (mongoose.connection.readyState == 0) {
-		mongoose.connect(DB_URL);
+		mongoose.connect(DB_URL)
 	}
 
   chat.when = new Date()
@@ -43,4 +50,28 @@ function insertChat (chat) {
   chat.save((err, chat) => {
     if (err) console.error(err)
   })
+}
+
+/**
+ * return some chat history
+ */
+function getChats (callback) {
+  // check connection
+  if (mongoose.connection.readyState === 0) {
+		mongoose.connect(DB_URL)
+	}
+
+	let LIMIT = 50
+	let query
+
+	query = Chat.find({})
+    .sort({when: -1})			// latest first
+		.limit(LIMIT)
+
+	query
+		.exec((err, chats) => {
+  		if (err) console.error(err)
+
+  		callback(chats)
+  	})
 }
