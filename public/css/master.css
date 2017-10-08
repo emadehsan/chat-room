@@ -41,6 +41,7 @@ body {
 }
 
 #messages li {
+  text-decoration: none;
   padding: 5px 10px;
 }
 
@@ -50,4 +51,8 @@ body {
 
 #messages {
   margin-bottom: 40px
+}
+
+.chat-history {
+  margin: 3%;
 }

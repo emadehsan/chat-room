@@ -5,52 +5,49 @@
   <title>Socket.IO chat</title>
   <link rel="stylesheet" href="css/master.css">
 
+  <script src="https://cdn.jsdelivr.net/npm/moment@2.18.1/moment.min.js"></script>
   <script src="https://unpkg.com/vue"></script>
-
-  <!-- Latest compiled and minified CSS -->
-  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.slim.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
 
 <body>
 
+  <div class="chat" id="app">
+    <div class="chat-history">
+      <ul class="chat-ul">
 
-  <div class="container clearfix">
+        <div v-for="m in messages">
+          <li v-if="m.by === currentUser">
+            <div class="message-data">
+              <span class="message-data-name"><h3><i class="fa fa-circle"></i> {{ m.by }}</h3></span>
+            </div>
+            <p class="message you-message"> {{ m.text }} </p>
+            <div> {{ humanReadable(m.when) }} </div>
+          </li>
+          <li v-else>
+            <div class="message-data align-right">
+              <span class="message-data-name"> <h3>{{ m.by }} <i class="fa fa-circle"></i></h3></span>
+            </div>
+            <div class="message me-message float-right"> {{ m.text }} </div>
+          </li>
+        </div>
 
-    <div class="chat" id="app">
-      <div class="chat-history">
-        <ul class="chat-ul">
+      </ul>
 
-          <div v-for="m in messages">
-            <li v-if="m.by === currentUser">
-              <div class="message-data">
-                <span class="message-data-name"><i class="fa fa-circle you"></i> <b>{{ m.by }}</b></span>
-              </div>
-              <div class="message you-message"> {{ m.text }} </div>
-            </li>
-            <li v-else class="clearfix">
-              <div class="message-data align-right">
-                <span class="message-data-name"> <h3>{{ m.by }}</h3></span> <i class="fa fa-circle me"></i>
-              </div>
-              <div class="message me-message float-right"> {{ m.text }} </div>
-            </li>
-          </div>
-
-        </ul>
-
-      </div>
-      <!-- end chat-history -->
-
-      <div id="send">
-        <input id="msg" v-model="msg" autocomplete="off" /><button v-on:click="send">Send</button>
-      </div>
     </div>
-    <!-- end chat -->
-    <script src="js/master.js"></script>
+    <!-- end chat-history -->
+
+    <div id="send">
+      <input id="msg" v-model="msg" autocomplete="off" /><button v-on:click="send">Send</button>
+    </div>
   </div>
+  <!-- end chat -->
+  <script src="js/master.js"></script>
 
 </body>
 

@@ -1,4 +1,4 @@
-let socket = io();
+let socket = io()
 
 let app = new Vue({
   el: '#app',
@@ -25,6 +25,9 @@ let app = new Vue({
     this.fetchChat()
   },
   methods: {
+    /**
+     * On click send button, sends the message to chat room
+     */
     send (event) {
       let message = this.msg.trim()
       let by = this.currentUser
@@ -39,15 +42,21 @@ let app = new Vue({
         by: by
       })
     },
+    /**
+     * fetches chat history from REST API
+     */
     fetchChat () {
       this.$http.get('/history').then(response => {
-        console.log(response.body)
         if (response.body.length > 0) {
-          this.messages = this.messages.concat(response.body)
+          // concatinate the reverse because the server sent the latest few in reverse order
+          this.messages = this.messages.concat(response.body.reverse())
         }
       }, err => {
         console.error(err)
       });
+    },
+    humanReadable (date) {
+      return moment(date).fromNow()
     }
   }
 })
