@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Socket.IO chat</title>
+  <link rel="stylesheet" href="css/master.css">
+
+  <script src="https://unpkg.com/vue"></script>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+</head>
+
+<body>
+  <ul id="messages"></ul>
+
+
+  <div class="container clearfix">
+
+    <div class="chat" id="app">
+      <div class="chat-history">
+        <ul class="chat-ul">
+
+          <div v-for="msg in messages">
+            <li v-if="msg.by === currentUser">
+              <div class="message-data">
+                <span class="message-data-name"><i class="fa fa-circle you"></i> <b>{{ msg.by }}</b></span>
+              </div>
+              <div class="message you-message"> {{ msg.text }} </div>
+            </li>
+            <li v-else class="clearfix">
+              <div class="message-data align-right">
+                <span class="message-data-name"> <h3>{{ msg.by }}</h3></span> <i class="fa fa-circle me"></i>
+              </div>
+              <div class="message me-message float-right"> {{ msg.text }} </div>
+            </li>
+          </div>
+
+        </ul>
+
+      </div>
+      <!-- end chat-history -->
+    </div>
+    <!-- end chat -->
+
+
+    <form action="">
+      <input id="m" autocomplete="off" /><button>Send</button>
+    </form>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      $(function() {
+        var socket = io();
+        $('form').submit(function() {
+          socket.emit('chat message', $('#m').val());
+          $('#m').val('');
+          return false;
+        });
+        socket.on('chat message', function(msg) {
+          $('#messages').append($('<li>').text(msg));
+          window.scrollTo(0, document.body.scrollHeight);
+        });
+      });
+    </script>
+
+    <script src="js/master.js"></script>
+</body>
+
+</html>
