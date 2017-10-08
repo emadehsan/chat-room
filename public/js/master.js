@@ -25,22 +25,30 @@ let app = new Vue({
     ],
     socket: io()
   },
+  created () {
+    // init code
+
+    console.log('created')
+    // receive event listener
+    this.socket.on('chat message', function(obj) {
+        console.log('received: ', obj);
+        window.scrollTo(0, document.body.scrollHeight);
+    })
+  },
   methods: {
-    init: function () {
-      // receive event listener
-      // this.socket.on('chat message', function(obj) {
-      //     console.log('received: ', obj);
-      //     window.scrollTo(0, document.body.scrollHeight);
-      // })
-    },
-    send: function (event) {
+    send (event) {
       console.log('sending');
-      let message = 'some message'
-      let by = 'someone'
-      // this.socket.emit('chat message', {
-      //   text: message,
-      //   by: by
-      // })
+      let message = this.msg
+      let by = this.currentUser
+
+      this.socket.emit('chat message', {
+        text: message,
+        by: by
+      })
+      console.log({
+        text: message,
+        by: by
+      })
     }
   }
 })
