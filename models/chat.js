@@ -8,7 +8,7 @@ const Schema = mongoose.Schema
 let chatSchema = new Schema({
 	text: String,
 	by: String,
-	on: Date
+	when: Date
 })
 
 // the schema is useless so far
