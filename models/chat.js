@@ -1,8 +1,8 @@
 /**
  * Chat model
  */
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
 // create a schema
 let chatSchema = new Schema({
@@ -16,4 +16,4 @@ let chatSchema = new Schema({
 const Chat = mongoose.model('Chat', chatSchema)
 
 // make this available to Node applications
-module.exports = Chat;
+module.exports = Chat
