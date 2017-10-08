@@ -3,15 +3,20 @@
 
 <head>
   <title>Chat Room</title>
-  <link rel="stylesheet" href="css/master.css">
 
+  <!-- momentjs lib -->
   <script src="https://cdn.jsdelivr.net/npm/moment@2.18.1/moment.min.js"></script>
+  <!-- vuejs -->
   <script src="https://unpkg.com/vue"></script>
-
+  <!-- socketio -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.slim.js"></script>
+  <!-- vue http package -->
   <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
-
+  <!-- font awesome for icons -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+  <link rel="stylesheet" href="css/master.css">
 
 </head>
 
@@ -19,6 +24,12 @@
 
   <div class="chat" id="app">
     <div class="chat-history">
+
+      <h1><i class="fa fa-comments"></i> Chat Room</h1>
+      <br>
+      <hr>
+      <br>
+
       <ul class="chat-ul">
 
         <div v-for="m in messages">
@@ -44,7 +55,7 @@
     <!-- end chat-history -->
 
     <div id="send">
-      <input id="msg" v-model="msg" autocomplete="off" /><button v-on:click="send">Send</button>
+      <input autofocus id="msg" v-model="msg" autocomplete="off" /><button v-on:click="send"><i class="fa fa-send"></i> Send</button>
     </div>
   </div>
   <!-- end chat -->
