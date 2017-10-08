@@ -6,13 +6,14 @@
   <link rel="stylesheet" href="css/master.css">
 
   <script src="https://unpkg.com/vue"></script>
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
+  <!-- Latest compiled and minified CSS -->
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+
+  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 </head>
 
 <body>
-  <ul id="messages"></ul>
 
 
   <div class="container clearfix">
@@ -21,18 +22,18 @@
       <div class="chat-history">
         <ul class="chat-ul">
 
-          <div v-for="msg in messages">
-            <li v-if="msg.by === currentUser">
+          <div v-for="m in messages">
+            <li v-if="m.by === currentUser">
               <div class="message-data">
-                <span class="message-data-name"><i class="fa fa-circle you"></i> <b>{{ msg.by }}</b></span>
+                <span class="message-data-name"><i class="fa fa-circle you"></i> <b>{{ m.by }}</b></span>
               </div>
-              <div class="message you-message"> {{ msg.text }} </div>
+              <div class="message you-message"> {{ m.text }} </div>
             </li>
             <li v-else class="clearfix">
               <div class="message-data align-right">
-                <span class="message-data-name"> <h3>{{ msg.by }}</h3></span> <i class="fa fa-circle me"></i>
+                <span class="message-data-name"> <h3>{{ m.by }}</h3></span> <i class="fa fa-circle me"></i>
               </div>
-              <div class="message me-message float-right"> {{ msg.text }} </div>
+              <div class="message me-message float-right"> {{ m.text }} </div>
             </li>
           </div>
 
@@ -40,31 +41,15 @@
 
       </div>
       <!-- end chat-history -->
+
+      <div id="send">
+        <input id="msg" v-model="msg" autocomplete="off" /><button v-on:click="send">Send</button>
+      </div>
     </div>
     <!-- end chat -->
-
-
-    <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
-    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    <script>
-      $(function() {
-        var socket = io();
-        $('form').submit(function() {
-          socket.emit('chat message', $('#m').val());
-          $('#m').val('');
-          return false;
-        });
-        socket.on('chat message', function(msg) {
-          $('#messages').append($('<li>').text(msg));
-          window.scrollTo(0, document.body.scrollHeight);
-        });
-      });
-    </script>
-
     <script src="js/master.js"></script>
+  </div>
+
 </body>
 
 </html>
