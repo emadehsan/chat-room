@@ -1,6 +1,7 @@
-const mongoose = require('mongoose')
 const express = require('express')
 const port = process.env.PORT || 3000
+
+const mongoose = require('mongoose')
 const DB_URL = 'mongodb://localhost/chat-room'
 
 const Chat = require('./models/chat')
@@ -41,7 +42,9 @@ io.on('connection', function(socket){
  */
 function insertChat (chat) {
 	if (mongoose.connection.readyState == 0) {
-		mongoose.connect(DB_URL)
+		mongoose.connect(DB_URL, {
+      useMongoClient: true
+    })
 	}
 
   chat.when = new Date()
@@ -58,7 +61,9 @@ function insertChat (chat) {
 function getChats (callback) {
   // check connection
   if (mongoose.connection.readyState === 0) {
-		mongoose.connect(DB_URL)
+		mongoose.connect(DB_URL, {
+      useMongoClient: true
+    })
 	}
 
 	let LIMIT = 50

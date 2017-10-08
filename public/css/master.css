@@ -25,7 +25,10 @@ body {
 
 #send button {
   width: 9%;
-  background: rgb(130, 224, 255);
+  /*background: rgb(130, 224, 255);*/
+  background: #e74c3c;
+  color: white;
+  font-weight: bold;
   border: none;
   padding: 10px;
   z-index: 3000;

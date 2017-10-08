@@ -20,6 +20,9 @@ let app = new Vue({
         this.messages.push(chat)
         window.scrollTo(0, document.body.scrollHeight);
     })
+
+    console.log('fetching chats...')
+    this.fetchChat()
   },
   methods: {
     send (event) {
@@ -35,6 +38,16 @@ let app = new Vue({
         text: message,
         by: by
       })
+    },
+    fetchChat () {
+      this.$http.get('/history').then(response => {
+        console.log(response.body)
+        if (response.body.length > 0) {
+          this.messages = this.messages.concat(response.body)
+        }
+      }, err => {
+        console.error(err)
+      });
     }
   }
 })
