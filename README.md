@@ -1,13 +1,21 @@
-# chat-example
+# chat-room
+Real time chat room with SocketIO on Node & MongoDB
 
-This is the source code for a very simple chat example used for
-the [Getting Started](http://socket.io/get-started/chat/) guide
-of the Socket.IO website.
+## Pre-requisites
+* Node.js
+* MongoDB
 
-Please refer to it to learn how to run this application.
+## Setup
 
-You can also spin up a free Heroku dyno to test it out:
-
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/socketio/chat-example)
-
-Besides, the application is deployed on [Now](https://zeit.co/now): https://socketio-chat-example.now.sh/
+1. Clone
+```
+$ git clone https://github.com/emadehsan/chat-room
+```
+2. Install Dependencies
+```
+$ npm install
+```
+3. Run
+```
+$ node index.js
+```

@@ -2,7 +2,14 @@ const express = require('express')
 const port = process.env.PORT || 3000
 
 const mongoose = require('mongoose')
-const DB_URL = 'mongodb://localhost/chat-room'
+
+// local
+// const DB_URL = 'mongodb://localhost/chat-room'
+
+// mlab
+const USER = 'duwusege'
+const PASS = 'duwusege1'
+const DB_URL = `mongodb://${USER}:${PASS}@ds113935.mlab.com:13935/chat-room-pk`
 
 const Chat = require('./models/chat')
 var app = express()
