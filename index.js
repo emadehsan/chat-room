@@ -1,5 +1,4 @@
 var app = require('express')();
-// var http = require('http').Server(app);
 
 var express = require('express');
 var app = express();
